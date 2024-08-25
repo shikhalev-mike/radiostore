@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://productListView.title"
       focusComponent="productsDataGrid">
     <data>
         <collection id="productsDc"
                     class="com.company.radiostore.entity.Product">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_base"/>
+                <property name="brand" fetchPlan="_base"/>
+            </fetchPlan>
             <loader id="productsDl" readOnly="true">
                 <query>
                     <![CDATA[select e from Product e]]>
@@ -48,6 +50,7 @@
             </actions>
             <columns resizable="true">
                 <column property="name"/>
+                <column property="category"/>
                 <column property="brand"/>
                 <column property="description"/>
             </columns>

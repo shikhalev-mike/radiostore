@@ -7,7 +7,6 @@
                   class="com.company.radiostore.entity.OrderLine">
             <fetchPlan extends="_base">
                 <property name="productInStore" fetchPlan="_base">
-                    <property name="product" fetchPlan="_base"/>
                 </property>
             </fetchPlan>
             <loader id="orderLineDl"/>

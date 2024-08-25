@@ -10,11 +10,8 @@
                     <property name="fullName"/>
                 </property>
                 <property name="orderLines" fetchPlan="_base">
-                    <property name="productInStore" fetchPlan="_base">
-                        <property name="product" fetchPlan="_base"/>
-                    </property>
+                    <property name="productInStore" fetchPlan="_base"/>
                 </property>
-                <property name="amount"/>
             </fetchPlan>
             <loader id="orderDl"/>
             <collection id="orderLinesDc" property="orderLines"/>

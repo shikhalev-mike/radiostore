@@ -9,16 +9,17 @@ import io.jmix.flowui.component.datepicker.TypedDatePicker;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.component.valuepicker.EntityPicker;
 import io.jmix.flowui.model.CollectionContainer;
+import io.jmix.flowui.model.DataContext;
 import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Route(value = "orders/:id", layout = MainView.class)
 @ViewController("Order_.detail")
@@ -43,8 +44,8 @@ public class OrderDetailView extends StandardDetailView<Order> {
     public void onBeforeShow(final BeforeShowEvent event) {
         amountField.setValue(String.valueOf(BigDecimal.ZERO));
         User currentUser = (User) currentAuthentication.getUser();
-        Optional<Customer> customerOptional  = customerFinder.findCustomerByUser(currentUser.getId());
-        if (customerOptional .isPresent()) {
+        Optional<Customer> customerOptional = customerFinder.findCustomerByUser(currentUser.getId());
+        if (customerOptional.isPresent()) {
             Customer customer = customerOptional.get();
             customerField.setValue(customer);
         } else {
@@ -67,6 +68,7 @@ public class OrderDetailView extends StandardDetailView<Order> {
 
     @Subscribe(id = "orderLinesDc", target = Target.DATA_CONTAINER)
     public void onOrderLinesDcCollectionChange(final CollectionContainer.CollectionChangeEvent<OrderLine> event) {
+        log.info("Order lines collection changed: {}", event.getChangeType());
         BigDecimal amount = BigDecimal.ZERO;
         List<OrderLine> orderLines = orderDc.getItem().getOrderLines();
         if (orderLines != null && !orderLines.isEmpty()) {

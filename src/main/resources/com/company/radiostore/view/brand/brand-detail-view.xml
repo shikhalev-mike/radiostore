@@ -19,7 +19,7 @@
     <layout>
         <formLayout id="form" dataContainer="brandDc">
             <textField id="nameField" property="name"/>
-            <textField id="descriptionField" property="description"/>
+            <textField id="descriptionField" property="website"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseBtn" action="saveAction"/>
