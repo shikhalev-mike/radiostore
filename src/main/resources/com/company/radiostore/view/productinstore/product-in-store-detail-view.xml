@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://productInStoreDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="productInStoreDc"
+                  class="com.company.radiostore.entity.ProductInStore">
+            <fetchPlan extends="_base">
+                <property name="product">
+                    <property name="name"/>
+                    <property name="brand"/>
+                    <property name="description"/>
+                </property>
+            </fetchPlan>
+            <loader id="productInStoreDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="productInStoreDc">
+            <entityPicker id="productField" property="product">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="priceField" property="price"/>
+            <textField id="quantityField" property="quantity"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

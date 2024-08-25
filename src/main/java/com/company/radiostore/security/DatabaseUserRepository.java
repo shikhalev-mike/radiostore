@@ -2,6 +2,8 @@ package com.company.radiostore.security;
 
 import com.company.radiostore.entity.User;
 import io.jmix.securitydata.user.AbstractDatabaseUserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -27,5 +29,9 @@ public class DatabaseUserRepository extends AbstractDatabaseUserRepository<User>
 
     @Override
     protected void initAnonymousUser(final User anonymousUser) {
+        final Collection<GrantedAuthority> authorities = getGrantedAuthoritiesBuilder()
+                .addResourceRole(UiMinimalRole.CODE)
+                .build();
+        anonymousUser.setAuthorities(authorities);
     }
 }

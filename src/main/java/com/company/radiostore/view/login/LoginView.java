@@ -1,5 +1,10 @@
 package com.company.radiostore.view.login;
 
+import com.company.radiostore.entity.User;
+import com.company.radiostore.view.main.MainView;
+import com.company.radiostore.view.user.UserDetailView;
+import com.company.radiostore.view.user.UserListView;
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
 import com.vaadin.flow.component.login.LoginI18n;
@@ -8,10 +13,13 @@ import com.vaadin.flow.i18n.LocaleChangeObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 import io.jmix.core.CoreProperties;
+import io.jmix.core.DataManager;
 import io.jmix.core.MessageTools;
 import io.jmix.core.security.AccessDeniedException;
+import io.jmix.flowui.ViewNavigators;
 import io.jmix.flowui.component.loginform.JmixLoginForm;
 import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.kit.component.loginform.JmixLoginI18n;
 import io.jmix.flowui.view.*;
 import io.jmix.securityflowui.authentication.AuthDetails;
@@ -24,6 +32,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -57,6 +66,10 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
     @Value("${ui.login.defaultPassword:}")
     private String defaultPassword;
+    @Autowired
+    private DataManager dataManager;
+    @Autowired
+    private ViewNavigators viewNavigators;
 
     @Subscribe
     public void onInit(final InitEvent event) {
@@ -122,4 +135,12 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
         login.setI18n(loginI18n);
     }
+
+    @Subscribe(id = "registerBtn", subject = "clickListener")
+    public void onRegisterBtnClick(final ClickEvent<JmixButton> event) {
+        viewNavigators.detailView(this, User.class)
+                .newEntity()
+                .navigate();
+    }
+
 }

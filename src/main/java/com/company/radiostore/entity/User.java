@@ -8,9 +8,10 @@ import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.security.authentication.JmixUserDetails;
-import org.springframework.security.core.GrantedAuthority;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -23,7 +24,7 @@ import java.util.UUID;
 public class User implements JmixUserDetails, HasTimeZone {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID", nullable = false)
     @JmixGeneratedValue
     private UUID id;
 
@@ -31,6 +32,7 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Column(name = "VERSION", nullable = false)
     private Integer version;
 
+    @InstanceName
     @Column(name = "USERNAME", nullable = false)
     protected String username;
 
@@ -151,13 +153,6 @@ public class User implements JmixUserDetails, HasTimeZone {
     @Override
     public boolean isEnabled() {
         return Boolean.TRUE.equals(active);
-    }
-
-    @InstanceName
-    @DependsOnProperties({"firstName", "lastName", "username"})
-    public String getDisplayName() {
-        return String.format("%s %s [%s]", (firstName != null ? firstName : ""),
-                (lastName != null ? lastName : ""), username).trim();
     }
 
     @Override

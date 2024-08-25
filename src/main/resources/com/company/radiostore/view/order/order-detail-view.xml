@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://orderDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="orderDc"
+                  class="com.company.radiostore.entity.Order">
+            <fetchPlan extends="_base">
+                <property name="customer" fetchPlan="_base">
+                    <property name="fullName"/>
+                </property>
+                <property name="orderLines" fetchPlan="_base">
+                    <property name="productInStore" fetchPlan="_base">
+                        <property name="product" fetchPlan="_base"/>
+                    </property>
+                </property>
+                <property name="amount"/>
+            </fetchPlan>
+            <loader id="orderDl"/>
+            <collection id="orderLinesDc" property="orderLines"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="orderDc">
+            <datePicker id="orderDateField" property="orderDate"/>
+            <entityPicker id="customerField" property="customer">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="amountField" property="amount"/>
+        </formLayout>
+        <h4 text="msg://com.company.radiostore.entity/Order.orderLines"/>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button action="orderLinesDataGrid.create"/>
+            <button action="orderLinesDataGrid.edit"/>
+            <button action="orderLinesDataGrid.remove"/>
+        </hbox>
+        <dataGrid id="orderLinesDataGrid" dataContainer="orderLinesDc" width="100%" minHeight="20em">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns>
+                <column property="quantity"/>
+                <column property="productInStore"/>
+            </columns>
+        </dataGrid>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

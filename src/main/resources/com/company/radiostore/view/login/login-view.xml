@@ -16,5 +16,8 @@
                           username="msg://loginForm.errorUsername"
                           password="msg://loginForm.errorPassword"/>
         </loginForm>
+        <button id="registerBtn"
+                text="msg://registerBtn.text"
+                themeNames="primary"></button>
     </layout>
 </view>
