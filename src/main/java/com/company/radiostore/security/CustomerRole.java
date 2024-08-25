@@ -38,7 +38,7 @@ public interface CustomerRole {
     void brand();
 
     @MenuPolicy(menuIds = {"Brand.list", "Category.list", "Order_.list"})
-    @ViewPolicy(viewIds = {"Brand.list", "Category.list", "Order_.list", "Order_.detail", "OrderLine.detail", "User.list", "Customer.list", "ProductInStore.list"})
+    @ViewPolicy(viewIds = {"Brand.list", "Category.list", "Order_.list", "Order_.detail", "OrderLine.detail", "User.list", "Customer.list", "ProductInStore.list", "MainView"})
     void screens();
 
     @EntityPolicy(entityClass = User.class, actions = EntityPolicyAction.READ)
@@ -68,4 +68,5 @@ public interface CustomerRole {
     @EntityAttributePolicy(entityClass = Position.class, attributes = "*", action = EntityAttributePolicyAction.VIEW)
     @EntityPolicy(entityClass = Position.class, actions = EntityPolicyAction.READ)
     void position();
+
 }
