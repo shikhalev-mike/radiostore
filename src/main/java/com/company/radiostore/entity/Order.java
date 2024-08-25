@@ -4,9 +4,9 @@ import io.jmix.core.DeletePolicy;
 import io.jmix.core.entity.annotation.OnDelete;
 import io.jmix.core.metamodel.annotation.Composition;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,12 +15,15 @@ import java.util.List;
 @JmixEntity
 @Table(name = "ORDER_", indexes = {
         @Index(name = "IDX_ORDER__CUSTOMER", columnList = "CUSTOMER_ID")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "IDX_ORDER_ORDER_NUMBER_UNQ", columnNames = {"NUMBER_"})
 })
 @Entity(name = "Order_")
 public class Order extends StandardEntity {
-    @Column(name = "NUMBER_", nullable = false)
+    @Positive
     @NotNull
-    private String number;
+    @Column(name = "NUMBER_", nullable = false)
+    private Long orderNumber;
 
     @Column(name = "ORDER_DATE", nullable = false)
     @NotNull
@@ -36,9 +39,17 @@ public class Order extends StandardEntity {
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines;
 
-    @JmixProperty
-    @Transient
+    @NotNull
+    @Column(name = "AMOUNT", nullable = false)
     private BigDecimal amount;
+
+    public void setOrderNumber(Long number) {
+        this.orderNumber = number;
+    }
+
+    public Long getOrderNumber() {
+        return orderNumber;
+    }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
@@ -72,11 +83,4 @@ public class Order extends StandardEntity {
         this.orderDate = orderDate;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
 }

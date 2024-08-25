@@ -1,6 +1,8 @@
 package com.company.radiostore.entity;
 
 import io.jmix.core.entity.annotation.EmbeddedParameters;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.*;
@@ -42,10 +44,6 @@ public class Employee extends StandardEntity {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    @JmixProperty
-    @Transient
-    private String fullName;
-
     public User getUser() {
         return user;
     }
@@ -86,12 +84,19 @@ public class Employee extends StandardEntity {
         this.birthDate = birthDate;
     }
 
+    @JmixProperty
+    @Transient
     public String getFullName() {
-        return user.firstName + " " + user.lastName;
+        if (user != null) {
+            return user.getFirstName() + " " + user.getLastName();
+        } else {
+            return null;
+        }
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    @InstanceName
+    @DependsOnProperties({"user"})
+    public String getInstanceName() {
+        return getFullName();
     }
-
 }

@@ -1,5 +1,8 @@
 package com.company.radiostore.entity;
 
+import io.jmix.core.MetadataTools;
+import io.jmix.core.metamodel.annotation.DependsOnProperties;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -47,5 +50,11 @@ public class ProductInStore extends StandardEntity {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @InstanceName
+    @DependsOnProperties({"product"})
+    public String getInstanceName(MetadataTools metadataTools) {
+        return metadataTools.format(product);
     }
 }

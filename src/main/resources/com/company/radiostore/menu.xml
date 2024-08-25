@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/flowui/menu">
 
-    <menu id="application" title="msg://com.company.radiostore/menu.application.title" opened="true">
-        <item view="User.list" title="msg://com.company.radiostore.view.user/UserListView.title"/>
+    <item view="Brand.list" title="msg://com.company.radiostore.view.brand/brandListView.title" icon="vaadin:palette"/>
+    <item view="Category.list" title="msg://com.company.radiostore.view.category/categoryListView.title"
+          icon="vaadin:align-justify"/>
+    <item view="Order_.list" title="msg://com.company.radiostore.view.order/orderListView.title" icon="vaadin:cart"/>
+    <menu id="management" title="msg://com.company.radiostore/management" opened="true" icon="vaadin:cog">
+        <item view="User.list" title="msg://com.company.radiostore.view.user/UserListView.title" icon="vaadin:users"/>
+        <item view="Customer.list" title="msg://com.company.radiostore.view.customer/customerListView.title" icon="vaadin:user-star"/>
+        <item view="Employee.list" title="msg://com.company.radiostore.view.employee/employeeListView.title" icon="vaadin:clipboard-user"/>
+        <item view="Position_.list" title="msg://com.company.radiostore.view.position/positionListView.title" icon="vaadin:user-card"/>
+        <item view="PriceHistory.list"
+              title="msg://com.company.radiostore.view.pricehistory/priceHistoryListView.title" icon="vaadin:money-exchange"/>
+        <item view="Product.list" title="msg://com.company.radiostore.view.product/productListView.title" icon="vaadin:cubes"/>
+        <item view="ProductInStore.list"
+              title="msg://com.company.radiostore.view.productinstore/productInStoreListView.title" icon="vaadin:shop"/>
     </menu>
-
 </menu-config>

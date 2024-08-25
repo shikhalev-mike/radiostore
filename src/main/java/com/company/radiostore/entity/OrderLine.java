@@ -21,6 +21,17 @@ public class OrderLine extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private ProductInStore productInStore;
 
+    @Column(name = "QUANTITY")
+    private Integer quantity;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public ProductInStore getProductInStore() {
         return productInStore;
     }
