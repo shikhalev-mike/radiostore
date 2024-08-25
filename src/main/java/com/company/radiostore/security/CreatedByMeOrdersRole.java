@@ -10,6 +10,7 @@ public interface CreatedByMeOrdersRole {
 
     @JpqlRowLevelPolicy(
             entityClass = Order.class,
-            where = "{E}.createdBy = :current_user_username")
+            where = "{E}.createdBy = :current_user_username AND " +
+                    "(SELECT COUNT(e) FROM Employee e WHERE e.user.username = :current_user_username) = 0")
     void order();
 }

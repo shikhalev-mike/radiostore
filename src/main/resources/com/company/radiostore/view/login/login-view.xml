@@ -18,6 +18,6 @@
         </loginForm>
         <button id="registerBtn"
                 text="msg://registerBtn.text"
-                themeNames="primary"></button>
+                themeNames="primary"/>
     </layout>
 </view>

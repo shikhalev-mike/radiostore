@@ -12,21 +12,14 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
 import io.jmix.core.EntityStates;
-import io.jmix.core.SaveContext;
 import io.jmix.flowui.component.textfield.TypedTextField;
-import io.jmix.flowui.model.InstanceContainer;
 import io.jmix.flowui.view.*;
-import io.jmix.security.role.RoleGrantedAuthorityUtils;
-import io.jmix.security.role.assignment.RoleAssignmentRepository;
 import io.jmix.security.role.assignment.RoleAssignmentRoleType;
 import io.jmix.securitydata.entity.RoleAssignmentEntity;
-import io.jmix.securitydata.impl.role.provider.DatabaseResourceRoleProvider;
-import io.jmix.securityflowui.role.UiFilterRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 @Route(value = "users/:id", layout = MainView.class)
 @ViewController("User.detail")
@@ -50,17 +43,9 @@ public class UserDetailView extends StandardDetailView<User> {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private RoleAssignmentRepository roleAssignmentRepository;
-    @Autowired
-    private DatabaseResourceRoleProvider databaseResourceRoleProvider;
-    @Autowired
     private DataManager dataManager;
-    @ViewComponent
-    private InstanceContainer<User> userDc;
     @Autowired
     DatabaseUserRepository databaseUserRepository;
-    @Autowired
-    private RoleGrantedAuthorityUtils roleGrantedAuthorityUtils;
 
     @Subscribe
     public void onInit(final InitEvent event) {
@@ -117,12 +102,5 @@ public class UserDetailView extends StandardDetailView<User> {
         customerRowRole.setRoleType(RoleAssignmentRoleType.ROW_LEVEL);
         customerRowRole.setRoleCode(CreatedByMeOrdersRole.CODE);
         dataManager.save(customerRowRole);
-    }
-
-    private Stream<String> baseCustomerRoles() {
-        return Stream.of(
-                UiMinimalRole.CODE,
-                CustomerRole.CODE
-        );
     }
 }

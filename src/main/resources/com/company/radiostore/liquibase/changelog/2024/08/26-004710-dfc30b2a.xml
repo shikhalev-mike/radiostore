@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="radiostore">
+        <addColumn tableName="PRODUCT">
+            <column name="BRAND_ID" type="UUID"/>
+        </addColumn>
+
+        <addNotNullConstraint columnName="BRAND_ID" tableName="PRODUCT"/>
+    </changeSet>
+    <changeSet id="2" author="radiostore">
+        <addForeignKeyConstraint baseColumnNames="BRAND_ID" baseTableName="PRODUCT" constraintName="FK_PRODUCT_ON_BRAND"
+                                 referencedColumnNames="ID" referencedTableName="BRAND"/>
+    </changeSet>
+    <changeSet id="3" author="radiostore">
+        <dropColumn columnName="brand" tableName="product"/>
+    </changeSet>
+    <changeSet id="4" author="radiostore">
+        <addNotNullConstraint columnDataType="UUID" columnName="CATEGORY_ID" tableName="PRODUCT" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

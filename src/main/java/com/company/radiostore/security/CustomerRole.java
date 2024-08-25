@@ -25,7 +25,7 @@ public interface CustomerRole {
     @EntityPolicy(entityClass = Product.class, actions = EntityPolicyAction.ALL)
     void product();
 
-    @EntityAttributePolicy(entityClass = ProductInStore.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)
+    @EntityAttributePolicy(entityClass = ProductInStore.class, attributes = {"version", "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate", "deletedBy", "deletedDate", "product", "price"}, action = EntityAttributePolicyAction.MODIFY)
     @EntityPolicy(entityClass = ProductInStore.class, actions = EntityPolicyAction.ALL)
     void productInStore();
 
@@ -33,7 +33,7 @@ public interface CustomerRole {
     @EntityPolicy(entityClass = OrderLine.class, actions = EntityPolicyAction.ALL)
     void orderLine();
 
-    @EntityAttributePolicy(entityClass = Brand.class, attributes = {"name", "description"}, action = EntityAttributePolicyAction.VIEW)
+    @EntityAttributePolicy(entityClass = Brand.class, attributes = {"name", "website"}, action = EntityAttributePolicyAction.VIEW)
     @EntityPolicy(entityClass = Brand.class, actions = EntityPolicyAction.READ)
     void brand();
 

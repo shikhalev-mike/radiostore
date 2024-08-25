@@ -14,7 +14,7 @@ public interface EmployeeRole {
     String CODE = "employee";
 
     @MenuPolicy(menuIds = {"Customer.list", "User.list", "Employee.list", "Position_.list", "PriceHistory.list", "Product.list", "ProductInStore.list", "Brand.list", "Category.list", "Order_.list"})
-    @ViewPolicy(viewIds = {"Customer.list", "User.list", "Employee.list", "Position_.list", "PriceHistory.list", "Product.list", "ProductInStore.list", "Brand.list", "Category.list", "Order_.list", "Brand.detail", "Category.detail", "Customer.detail", "Employee.detail", "Position_.detail", "Order_.detail", "OrderLine.detail", "Product.detail", "ProductInStore.detail", "User.detail"})
+    @ViewPolicy(viewIds = {"Customer.list", "User.list", "Employee.list", "Position_.list", "PriceHistory.list", "Product.list", "ProductInStore.list", "Brand.list", "Category.list", "Order_.list", "Brand.detail", "Category.detail", "Customer.detail", "Employee.detail", "Position_.detail", "Order_.detail", "OrderLine.detail", "Product.detail", "ProductInStore.detail", "User.detail", "MainView"})
     void screens();
 
     @EntityAttributePolicy(entityClass = Address.class, attributes = "*", action = EntityAttributePolicyAction.MODIFY)

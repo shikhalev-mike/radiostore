@@ -1,9 +1,6 @@
 package com.company.radiostore.view.login;
 
 import com.company.radiostore.entity.User;
-import com.company.radiostore.view.main.MainView;
-import com.company.radiostore.view.user.UserDetailView;
-import com.company.radiostore.view.user.UserListView;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
@@ -32,7 +29,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -66,8 +62,7 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
     @Value("${ui.login.defaultPassword:}")
     private String defaultPassword;
-    @Autowired
-    private DataManager dataManager;
+
     @Autowired
     private ViewNavigators viewNavigators;
 
@@ -78,9 +73,7 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     }
 
     protected void initLocales() {
-        LinkedHashMap<Locale, String> locales = coreProperties.getAvailableLocales().stream()
-                .collect(Collectors.toMap(Function.identity(), messageTools::getLocaleDisplayName, (s1, s2) -> s1,
-                        LinkedHashMap::new));
+        LinkedHashMap<Locale, String> locales = coreProperties.getAvailableLocales().stream().collect(Collectors.toMap(Function.identity(), messageTools::getLocaleDisplayName, (s1, s2) -> s1, LinkedHashMap::new));
 
         ComponentUtils.setItemsMap(login, locales);
 
@@ -100,11 +93,7 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
     @Subscribe("login")
     public void onLogin(final LoginEvent event) {
         try {
-            loginViewSupport.authenticate(
-                    AuthDetails.of(event.getUsername(), event.getPassword())
-                            .withLocale(login.getSelectedLocale())
-                            .withRememberMe(login.isRememberMe())
-            );
+            loginViewSupport.authenticate(AuthDetails.of(event.getUsername(), event.getPassword()).withLocale(login.getSelectedLocale()).withRememberMe(login.isRememberMe()));
         } catch (final BadCredentialsException | DisabledException | LockedException | AccessDeniedException e) {
             log.warn("Login failed for user '{}': {}", event.getUsername(), e.toString());
             event.getSource().setError(true);
@@ -138,9 +127,7 @@ public class LoginView extends StandardView implements LocaleChangeObserver {
 
     @Subscribe(id = "registerBtn", subject = "clickListener")
     public void onRegisterBtnClick(final ClickEvent<JmixButton> event) {
-        viewNavigators.detailView(this, User.class)
-                .newEntity()
-                .navigate();
+        viewNavigators.detailView(this, User.class).newEntity().navigate();
     }
 
 }

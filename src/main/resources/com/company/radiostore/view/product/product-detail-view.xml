@@ -5,7 +5,10 @@
     <data>
         <instance id="productDc"
                   class="com.company.radiostore.entity.Product">
-            <fetchPlan extends="_base"/>
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_base"/>
+                <property name="brand" fetchPlan="_base"/>
+            </fetchPlan>
             <loader id="productDl"/>
         </instance>
     </data>
@@ -19,7 +22,18 @@
     <layout>
         <formLayout id="form" dataContainer="productDc">
             <textField id="nameField" property="name"/>
-            <textField id="brandField" property="brand"/>
+            <entityPicker id="categoryField" property="category">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="brandField" property="brand">
+                <actions>
+                    <action id="entityLookup" type="entity_lookup"/>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityPicker>
             <textField id="descriptionField" property="description"/>
         </formLayout>
         <hbox id="detailActions">

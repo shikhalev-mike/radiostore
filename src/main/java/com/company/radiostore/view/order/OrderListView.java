@@ -12,8 +12,4 @@ import io.jmix.flowui.view.*;
 @LookupComponent("ordersDataGrid")
 @DialogMode(width = "64em")
 public class OrderListView extends StandardListView<Order> {
-    @Subscribe
-    public void onInit(final InitEvent event) {
-
-    }
 }

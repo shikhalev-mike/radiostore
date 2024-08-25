@@ -8,15 +8,6 @@
             <fetchPlan extends="_base">
                 <property name="address" fetchPlan="_base"/>
                 <property name="position" fetchPlan="_base"/>
-                <property name="user">
-                    <property name="username"/>
-                    <property name="password"/>
-                    <property name="firstName"/>
-                    <property name="lastName"/>
-                    <property name="email"/>
-                    <property name="active"/>
-                    <property name="timeZoneId"/>
-                </property>
                 <property name="fullName"/>
             </fetchPlan>
             <loader id="employeeDl"/>

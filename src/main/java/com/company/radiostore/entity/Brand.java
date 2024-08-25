@@ -17,14 +17,14 @@ public class Brand extends StandardEntity {
     private String name;
 
     @Column(name = "DESCRIPTION")
-    private String description;
+    private String website;
 
-    public String getDescription() {
-        return description;
+    public String getWebsite() {
+        return website;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setWebsite(String description) {
+        this.website = description;
     }
 
     public String getName() {

@@ -6,11 +6,6 @@
         <instance id="productInStoreDc"
                   class="com.company.radiostore.entity.ProductInStore">
             <fetchPlan extends="_base">
-                <property name="product">
-                    <property name="name"/>
-                    <property name="brand"/>
-                    <property name="description"/>
-                </property>
             </fetchPlan>
             <loader id="productInStoreDl"/>
         </instance>

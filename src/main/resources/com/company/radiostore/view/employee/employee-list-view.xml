@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
-      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://employeeListView.title"
       focusComponent="employeesDataGrid">
     <data>
@@ -9,9 +8,6 @@
             <fetchPlan extends="_base">
                 <property name="address" fetchPlan="_base"/>
                 <property name="position" fetchPlan="_base"/>
-                <property name="user">
-                    <property name="username"/>
-                </property>
                 <property name="fullName"/>
             </fetchPlan>
             <loader id="employeesDl" readOnly="true">
@@ -54,14 +50,14 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
+                <column property="user"/>
+                <column property="fullName"/>
+                <column property="position"/>
                 <column property="birthDate"/>
                 <column property="hireDate"/>
                 <column property="address.city"/>
                 <column property="address.street"/>
                 <column property="address.house"/>
-                <column property="position"/>
-                <column property="user"/>
-                <column property="fullName"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
